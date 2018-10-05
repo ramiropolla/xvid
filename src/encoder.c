@@ -1844,7 +1844,7 @@ SliceCodeP(SMPData *data)
 
 			/* Finished processing the MB, now check if to CODE or SKIP */
 
-			if ( (current->vop_flags & CAS9_VOP_FORCE_MV) != 0 )
+			if ( (current->vop_flags & FFEDIT_VOP_FORCE_MV) != 0 )
 			{
 				skip_possible = 0;
 			}

@@ -276,7 +276,7 @@ ModeDecision_SAD(SearchData * const Data,
 	int inter4v = (VopFlags & XVID_VOP_INTER4V) && (pMB->dquant == 0);
 	const uint32_t iQuant = pMB->quant;
 
-	const int skip_possible = (coding_type == P_VOP) && (pMB->dquant == 0) && (VopFlags & CAS9_VOP_FORCE_MV) == 0;
+	const int skip_possible = (coding_type == P_VOP) && (pMB->dquant == 0) && (VopFlags & FFEDIT_VOP_FORCE_MV) == 0;
 
 	int sad;
 	int InterBias = MV16_INTER_BIAS;
@@ -330,7 +330,7 @@ ModeDecision_SAD(SearchData * const Data,
 
 	if (Data->chroma) InterBias += 50; /* dev8(chroma) ??? <-- yes, we need dev8 (no big difference though) */
 
-	if (InterBias < sad && (VopFlags & CAS9_VOP_PNOIMB) == 0) {
+	if (InterBias < sad && (VopFlags & FFEDIT_VOP_NOPIMB) == 0) {
 		int32_t deviation = dev16(Data->Cur, Data->iEdgedWidth);
 		if (deviation < (sad - InterBias)) mode = MODE_INTRA;
 	}
@@ -730,7 +730,7 @@ InitialSkipDecisionP(int sad00,
 	int stat_thresh = 0;
 
 	/* initial skip decision */
-	if (current->coding_type != S_VOP && (current->vop_flags & CAS9_VOP_FORCE_MV) == 0)	{ /* no fast SKIP for S(GMC)-VOPs */
+	if (current->coding_type != S_VOP && (current->vop_flags & FFEDIT_VOP_FORCE_MV) == 0)	{ /* no fast SKIP for S(GMC)-VOPs */
 		if (pMB->dquant == 0 && sad00 < pMB->quant * skip_thresh)
 			if (Data->chroma || xvid_me_SkipDecisionP(pCurrent, pRef, x, y, iEdgedWidth/2, pMB->quant)) {
 				ZeroMacroblockP(pMB, sad00);
